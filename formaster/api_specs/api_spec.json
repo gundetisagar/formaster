@@ -1,0 +1,809 @@
+{
+    "swagger": "2.0",
+    "host": "127.0.0.1:8080",
+    "basePath": "/api/formaster/",
+    "info": {
+        "version": "1.0.0",
+        "title": "FORMASTER API",
+        "description": "A simple API to learn how to write OpenAPI Specification"
+    },
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "oauth": {
+            "tokenUrl": "http://auth.ibtspl.com/oauth2/",
+            "flow": "password",
+            "scopes": {
+                "read": "read users",
+                "write": "create users",
+                "update": "update users",
+                "delete": "delete users",
+                "admin": "admin",
+                "user": "user"
+            },
+            "type": "oauth2"
+        }
+    },
+    "paths": {
+        "/login/v1/": {
+            "post": {
+                "operationId": "login",
+                "summary": "Login",
+                "parameters": [{
+                    "$ref": "#/parameters/LoginParameter"
+                }],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/LoginResponse"
+                    },
+                    "401": {
+                        "$ref": "#/responses/InvalidUsernameOrPasswordResponse"
+                    }
+                }
+            }
+        },
+        "/get_profile/v1/": {
+            "get": {
+                "operationId": "get_profile",
+                "summary": "User Details",
+                "security": [{
+                    "oauth": [
+                        "read"
+                    ]
+                }],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/UserDetailsResponses"
+                    }
+                }
+            }
+        },
+        "/add_form_title/v1/": {
+            "post": {
+                "operationId": "add_form_title",
+                "summary": "Add Form Title",
+                "security": [{
+                    "oauth": [
+                        "write"
+                    ]
+                }],
+                "parameters": [{
+                    "$ref": "#/parameters/FormTitleParameter"
+                }],
+                "responses": {
+                    "201": {
+                        "$ref": "#/responses/FormTitleResponse"
+                    },
+                    "400": {
+                        "$ref": "#/responses/InvalidFormTitleResponse"
+                    }
+                }
+            }
+        },
+        "/questions_create/{form_id}/v1/": {
+            "post": {
+                "operationId": "questions_create",
+                "summary": "Questions Create",
+                "security": [{
+                    "oauth": [
+                        "write"
+                    ]
+                }],
+                "parameters": [{
+                        "$ref": "#/parameters/FormIdParameter"
+                    },
+                    {
+                        "$ref": "#/parameters/QuestionsCreateParameter"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successfully created"
+                    }
+                }
+            }
+        },
+        "/get_forms/v1/": {
+            "get": {
+                "operationId": "get_form",
+                "summary": "Get Form",
+                "security": [{
+                    "oauth": [
+                        "write",
+                        "read"
+                    ]
+                }],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/UserFormsListResponse"
+                    }
+                }
+            }
+        },
+        "/user/get_forms/v1/": {
+            "get": {
+                "operationId": "get_user_forms",
+                "summary": "Get User Form",
+                "security": [{
+                    "oauth": [
+                        "write",
+                        "read"
+                    ]
+                }],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/UserFormsListResponse"
+                    }
+                }
+            }
+        },
+        "/get_form_with_questions/{form_id}/v1/": {
+            "get": {
+                "operationId": "get_form_with_questions",
+                "summary": "Get form with questions",
+                "security": [{
+                    "oauth": [
+                        "write",
+                        "read"
+                    ]
+                }],
+                "parameters": [{
+                    "$ref": "#/parameters/FormIdParameter"
+                }],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/FormWithQuestionsResponse"
+                    }
+                }
+            }
+        },
+        "/submit_responses/v1/": {
+            "post": {
+                "operationId": "submit_responses",
+                "summary": "Submit your responses here",
+                "security": [{
+                    "oauth": [
+                        "write",
+                        "read"
+                    ]
+                }],
+                "parameters": [{
+                    "$ref": "#/parameters/SubmitResponseParameter"
+                }],
+                "responses": {
+                    "201": {
+                        "description": "successfully submitted your responses"
+                    },
+                    "404": {
+                        "description": "invalid question_id or choice_id"
+                    }
+                }
+            }
+        },
+        "/user/view_form_response/{form_id}/v1/": {
+            "get": {
+                "operationId": "view_form_response",
+                "summary": "get form question and answers",
+                "security": [{
+                    "oauth": [
+                        "read"
+                    ]
+                }],
+                "parameters": [{
+                    "$ref": "#/parameters/FormIdParameter"
+                }],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/ViewFormResponse"
+                    }
+                }
+            }
+        },
+        "/update_form_title/{form_id}/v1/": {
+            "put": {
+                "operationId": "update_form_title",
+                "summary": "Update form title",
+                "security": [{
+                    "oauth": [
+                        "write"
+                    ]
+                }],
+                "parameters": [{
+                        "$ref": "#/parameters/FormIdParameter"
+                    },
+                    {
+                        "$ref": "#/parameters/FormUpdateParameter"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "updated successfully"
+                    },
+                    "404": {
+                        "description": "invalid form id"
+                    }
+                }
+            }
+        },
+        "/form_delete/{form_id}/v1/": {
+            "delete": {
+                "operationId": "form_delete",
+                "summary": "From Delete",
+                "security": [{
+                    "oauth": [
+                        "admin"
+                    ]
+                }],
+                "parameters": [{
+                    "$ref": "#/parameters/FormIdParameter"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "deleted successfully"
+                    },
+                    "404": {
+                        "description": "invalid form id"
+                    },
+                    "403": {
+                        "description": "only admin can delete form"
+                    }
+                }
+            }
+        },
+        "/question_delete/{form_id}/{question_id}/v1/": {
+            "delete": {
+                "operationId": "question_delete",
+                "summary": "Question Delete",
+                "security": [{
+                    "oauth": [
+                        "admin"
+                    ]
+                }],
+                "parameters": [{
+                        "$ref": "#/parameters/FormIdParameter"
+                    },
+                    {
+                        "$ref": "#/parameters/QuestionIdParameter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "deleted successfully"
+                    },
+                    "404": {
+                        "description": "invalid details"
+                    }
+                }
+            }
+        },
+        "/update_form_questions/{form_id}/v1/": {
+            "put": {
+                "operationId": "update_form_questions",
+                "summary": "Update form questions",
+                "security": [{
+                    "oauth": [
+                        "write"
+                    ]
+                }],
+                "parameters": [{
+                        "$ref": "#/parameters/FormIdParameter"
+                    },
+                    {
+                        "$ref": "#/parameters/QuestionsCreateParameter"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successfully created"
+                    }
+                }
+            }
+        },
+        "/question_update/{form_id}/{question_id}/v1": {
+            "put": {
+                "operationId": "update_question",
+                "summary": "Question Update",
+                "security": [{
+                    "oauth": [
+                        "write"
+                    ]
+                }],
+                "parameters": [{
+                        "$ref": "#/parameters/FormIdParameter"
+                    },
+                    {
+                        "$ref": "#/parameters/QuestionIdParameter"
+                    },
+                    {
+                        "$ref": "#/parameters/QuestionUpdateParameter"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "updated successfully"
+                    },
+                    "404": {
+                        "description": "invalid details"
+                    }
+                }
+            }
+        }
+    },
+    "parameters": {
+        "LoginParameter": {
+            "name": "login_form",
+            "in": "body",
+            "description": "Enter your login details",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/Login"
+            }
+        },
+        "FormTitleParameter": {
+            "name": "Form_Title",
+            "in": "body",
+            "description": "Enter form title",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/FormTitle"
+            }
+        },
+        "QuestionsCreateParameter": {
+            "name": "questions_create",
+            "in": "body",
+            "description": "enter details",
+            "required": true,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "questions_list": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/QuestionsCreate"
+                        }
+                    }
+                },
+                "required": [
+                    "questions_list"
+                ]
+            }
+        },
+        "FormUpdateParameter": {
+            "name": "question_create",
+            "in": "body",
+            "description": "enter details",
+            "required": true,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "new_form_title": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "new_form_title"
+                ]
+            }
+        },
+        "QuestionUpdateParameter": {
+            "name": "question_update",
+            "in": "body",
+            "description": "question title update",
+            "required": true,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "question_title": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "FormIdParameter": {
+            "name": "form_id",
+            "in": "path",
+            "description": "enter form id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "QuestionIdParameter": {
+            "name": "question_id",
+            "in": "path",
+            "description": "enter question id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "SubmitResponseParameter": {
+            "name": "submitResponses",
+            "in": "body",
+            "description": "enter response",
+            "required": true,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "response_list": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/SubmitResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "responses": {
+        "LoginResponse": {
+            "description": "returns user_id, access_token, refresh_token",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "access_token": {
+                        "type": "string"
+                    },
+                    "refresh_token": {
+                        "type": "string"
+                    },
+                    "expires_in": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "required": [
+                    "user_id",
+                    "access_token",
+                    "refresh_token",
+                    "expires_in"
+                ]
+            }
+        },
+        "InvalidUsernameOrPasswordResponse": {
+            "description": "Given details invalid"
+        },
+        "FormTitleResponse": {
+            "description": "returns form_title_name",
+            "schema": {
+                "$ref": "#/definitions/FormTitleWithId"
+            }
+        },
+        "InvalidFormTitleResponse": {
+            "description": "Invalid_form_title"
+        },
+        "UserDetailsResponses": {
+            "description": "returns user details",
+            "schema": {
+                "$ref": "#/definitions/UserDetails"
+            }
+        },
+        "FormWithQuestionsResponse": {
+            "description": "returns form questions",
+            "schema": {
+                "$ref": "#/definitions/FormWithQuestions"
+            }
+        },
+        "QuestionUpdateResponse": {
+            "description": "returns form create response",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "questions_list": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/FormWithQuestions"
+                        }
+                    }
+                }
+            }
+        },
+        "FormsListResponse": {
+            "description": "returns forms list",
+            "schema": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/FormTitleWithId"
+                }
+            }
+        },
+        "UserFormsListResponse": {
+            "description": "user forms list",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "forms_list": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/FormTitleWithId"
+                        }
+                    }
+                }
+            }
+        },
+        "ViewFormResponse": {
+            "description": "returns list of questions with answer",
+            "schema": {
+                "$ref": "#/definitions/ViewForm"
+            }
+        }
+    },
+    "definitions": {
+        "Login": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "username",
+                "password"
+            ]
+        },
+        "UserDetails": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "username"
+            ]
+        },
+        "FormTitle": {
+            "type": "object",
+            "properties": {
+                "form_title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "form_title"
+            ]
+        },
+        "QuestionsCreate": {
+            "type": "object",
+            "properties": {
+                "question_type": {
+                    "type": "string"
+                },
+                "question_text": {
+                    "type": "string"
+                },
+                "required": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "choices_list": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "question_type",
+                "question_text",
+                "required"
+            ]
+        },
+        "FormUpdate": {
+            "type": "object",
+            "properties": {
+                "question_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "question_type": {
+                    "type": "string"
+                },
+                "question_text": {
+                    "type": "string"
+                },
+                "required": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "mcq_question_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "choices_list": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "question_type",
+                "question_text",
+                "required",
+                "mcq_question_id"
+            ]
+        },
+        "FormWithQuestions": {
+            "type": "object",
+            "properties": {
+                "form_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "form_title": {
+                    "type": "string"
+                },
+                "questions_list": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "question_id": {
+                                "type": "integer",
+                                "format": "int64"
+                            },
+                            "question_type": {
+                                "type": "string"
+                            },
+                            "question_text": {
+                                "type": "string"
+                            },
+                            "required": {
+                                "type": "boolean"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "choices": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "choice_id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "choice_text": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "choice_id",
+                                        "choice_text"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "form_id",
+                "form_title",
+                "questions_list"
+            ]
+        },
+        "FormTitleWithId": {
+            "type": "object",
+            "properties": {
+                "form_title": {
+                    "type": "string"
+                },
+                "form_id": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "required": [
+                "form_title",
+                "form_id"
+            ]
+        },
+        "SubmitResponse": {
+            "type": "object",
+            "properties": {
+                "question_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "response_text": {
+                    "type": "string"
+                },
+                "choice_id": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "required": [
+                "question_id"
+            ]
+        },
+        "QuestionAndResponse": {
+            "type": "object",
+            "properties": {
+                "question_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "question_type": {
+                    "type": "string"
+                },
+                "question_text": {
+                    "type": "string"
+                },
+                "required": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "choices": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "choice_id": {
+                                "type": "integer",
+                                "format": "int64"
+                            },
+                            "choice_text": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "choice_id",
+                            "choice_text"
+                        ]
+                    }
+                },
+                "response_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "response_text": {
+                    "type": "string"
+                },
+                "response_choice_id": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "ViewForm": {
+            "type": "object",
+            "properties": {
+                "form_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "form_title": {
+                    "type": "string"
+                },
+                "question_and_response_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/QuestionAndResponse"
+                    }
+                }
+            }
+        }
+    }
+}
