@@ -9,7 +9,8 @@ from formaster.presenters.presenter_implementation import \
     PresenterImplementation
 from formaster.storages.form_storage_implementation import \
     FormStorageImplimentation
-
+from formaster.storages.user_storage_implementation import \
+    UserStorageImplementation
 
 
 @validate_decorator(validator_class=ValidatorClass)
@@ -21,10 +22,12 @@ def api_wrapper(*args, **kwargs):
     user_id = user.id
 
     form_storage = FormStorageImplimentation()
+    user_storage = UserStorageImplementation()
     presenter = PresenterImplementation()
 
     interactor = AddFormTitleInteractor(
         form_storage=form_storage,
+        user_storage=user_storage,
         presenter=presenter
     )
 

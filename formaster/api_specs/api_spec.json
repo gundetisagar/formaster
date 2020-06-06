@@ -357,7 +357,7 @@
             }
         },
         "QuestionsCreateParameter": {
-            "name": "questions_create",
+            "name": "question_create",
             "in": "body",
             "description": "enter details",
             "required": true,

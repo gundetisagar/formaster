@@ -37,18 +37,45 @@ class SubmitResponseInteractor:
                 return
 
             choice_id = response['choice_id']
-            try:
-                self.choice_storage.validate_choice_id(
-                    choice_id=choice_id
-                )
-            except InvalidChoiceId:
-                self.presenter.raise_exception_for_invalid_choice_id()
-                return
+            if choice_id:
+                try:
+                    self.choice_storage.validate_choice_id(
+                        choice_id=choice_id
+                    )
+                except InvalidChoiceId:
+                    self.presenter.raise_exception_for_invalid_choice_id()
+                    return
 
             response_text = response['response_text']
-            self.response_storage.submit_response(
-                user_id,
-                question_id,
-                response_text,
-                choice_id
-            )
+            if response_text or choice_id:
+                self.response_storage.submit_response(
+                    user_id,
+                    question_id,
+                    response_text,
+                    choice_id
+                )
+            
+
+        # try:
+        #     old_reaction = self.reaction_storage.get_reaction_of_post(
+        #         user_id=user_id,
+        #         post_id=post_id,
+        #     )
+        # except ReactionDoesNotExist:
+        #     self.reaction_storage.react_to_post(
+        #         user_id=user_id,
+        #         post_id=post_id,
+        #         reaction_type=reaction_type
+        #     )
+        #     return
+        # same_reactions = old_reaction == reaction_type
+        # if same_reactions:
+        #     self.reaction_storage.delete_reaction_of_post(
+        #         user_id=user_id,
+        #         post_id=post_id
+        #     )
+        # else:
+        #     self.reaction_storage.update_reaction_of_post(
+                # user_id=user_id,
+                # post_id=post_id,
+                # reaction_type=reaction_type

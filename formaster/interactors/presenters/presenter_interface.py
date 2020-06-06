@@ -5,7 +5,7 @@ from formaster.dtos.dtos import (
     UserDetailsDto,
     FormTitleWithIdDto,
     FormWithQuestionsDto,
-    ViewFormResponseDto
+    QuestionResponseDto
 )
 
 class PresenterInterface():
@@ -68,7 +68,7 @@ class PresenterInterface():
     @abstractmethod
     def get_form_view_response(
             self,
-            list_of_view_form_response_dto: List[ViewFormResponseDto]):
+            list_of_view_form_response_dto: List[QuestionResponseDto]):
         pass
 
     @abstractmethod
@@ -86,4 +86,8 @@ class PresenterInterface():
     @abstractmethod
     def update_form_title_response(
         self, form_title_with_id_dto: FormTitleWithIdDto):
+        pass
+
+    @abstractmethod
+    def raise_exception_for_invalid_response_form(self):
         pass

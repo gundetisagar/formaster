@@ -7,6 +7,7 @@ from formaster.interactors.presenters.presenter_interface import \
 from formaster.interactors.storages.form_storage_interface import \
     FormStorageInterface
 from django_swagger_utils.drf_server.exceptions import NotFound
+from formaster.exceptions.exceptions import InvalidResponseForm
 
 
 class ViewFormResponseInteractor:
@@ -26,9 +27,13 @@ class ViewFormResponseInteractor:
             self.presenter.raise_exception_for_invalid_form_id()
             return
 
+
         list_of_view_form_response_dto = self.question_storage.get_form_view(
             form_id=form_id
         )
+        # except InvalidResponseForm:
+        #     self.presenter.raise_exception_for_invalid_response_form()
+        #     return
 
         form_response_dict = self.presenter.get_form_view_response(
             list_of_view_form_response_dto=list_of_view_form_response_dto

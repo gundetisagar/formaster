@@ -1,29 +1,39 @@
+from django.http import HttpResponse
 from django_swagger_utils.drf_server.utils.decorator.interface_decorator \
     import validate_decorator
 from .validator_class import ValidatorClass
+from formaster.interactors.submit_response_interactor import \
+    SubmitResponseInteractor
+from formaster.storages.response_storage_implementation import \
+    ResponseStorageImplementation
+from formaster.storages.question_storage_implementation import \
+    QuestionStorageImplementation
+from formaster.storages.choice_storage_implementation import \
+    ChoiceStorageImplementation
+from formaster.presenters.presenter_implementation import \
+    PresenterImplementation
 
 
 @validate_decorator(validator_class=ValidatorClass)
 def api_wrapper(*args, **kwargs):
     # ---------MOCK IMPLEMENTATION---------
+    user_obj = kwargs['user']
+    user_id = user_obj.id
+    request_data = kwargs['request_data']
+    response_list = request_data['response_list']
 
-    try:
-        from formaster.views.submit_responses.tests.test_case_01 \
-            import TEST_CASE as test_case
-    except ImportError:
-        from formaster.views.submit_responses.tests.test_case_01 \
-            import test_case
+    response_storage = ResponseStorageImplementation()
+    questions_storage = QuestionStorageImplementation()
+    choice_storage = ChoiceStorageImplementation()
+    presenter = PresenterImplementation()
 
-    from django_swagger_utils.drf_server.utils.server_gen.mock_response \
-        import mock_response
-    try:
-        from formaster.views.submit_responses.request_response_mocks \
-            import RESPONSE_200_JSON
-    except ImportError:
-        RESPONSE_200_JSON = ''
-    response_tuple = mock_response(
-        app_name="formaster", test_case=test_case,
-        operation_name="submit_responses",
-        kwargs=kwargs, default_response_body=RESPONSE_200_JSON,
-        group_name="")
-    return response_tuple[1]
+    interactor = SubmitResponseInteractor(
+        response_storage=response_storage,
+        questions_storage=questions_storage,
+        choice_storage=choice_storage,
+        presenter=presenter
+    )
+
+    interactor.submit_response(user_id=user_id, response_list=response_list)
+
+    return HttpResponse(status=201)

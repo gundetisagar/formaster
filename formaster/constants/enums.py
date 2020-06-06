@@ -2,7 +2,7 @@ import enum
 
 
 class QuestionTypes(enum.Enum):
-    WELCOME_SCREEN = "WElCOME_SCREEN"
+    WELCOME_SCREEN = "WELCOME_SCREEN"
     THANK_YOU_SCREEN = "THANK_YOU_SCREEN"
     MCQ = "MCQ"
     LARGE_TEXT = "LARGE_TEXT"

@@ -8,10 +8,7 @@ from formaster.dtos.dtos import (
     QuestionResponseDto,
     QuestionDto
 )
-from formaster.exceptions.exceptions import (
-    InvalidQuestionId,
-    InvalidResponseForm
-)
+from formaster.exceptions.exceptions import InvalidQuestionId
 
 
 class QuestionStorageImplementation(QuestionStorageInterface):
@@ -115,13 +112,14 @@ class QuestionStorageImplementation(QuestionStorageInterface):
 
     def get_form_view(self, form_id: int):
         questions_and_response_objs = \
-            Question.objects.filter(form_id=form_id)\
-                            .prefetch_related("choices_set", 'response_set')
-        print(questions_and_response_objs)
+            Question.objects.filter(form_id=form_id).prefetch_related("choices_set", 'response_set')
         list_of_view_from_response_dto = \
             self._convert_question_and_response_objs_to_dto(
                 questions_and_response_objs
             )
+        print("\n\n\n")
+        print(list_of_view_from_response_dto)
+        print("\n\n\n")
         return list_of_view_from_response_dto
 
 
@@ -145,9 +143,8 @@ class QuestionStorageImplementation(QuestionStorageInterface):
                     choice_dto = self._convert_choice_obj_to_dto(choice)
                     list_of_choises_dto.append(choice_dto)
                     
-                response_obj = question_obj.response_set.all().first()
-                #response_obj = response_obj[0]
-
+                response = question_obj.response_set.all()
+                response_obj = response[0]
                 question_response_dto = self._convert_question_response_to_dto(
                     list_of_choises_dto, response_obj, question_obj
                 )

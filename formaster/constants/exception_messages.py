@@ -49,3 +49,8 @@ INVALID_USER_ID = (
     "Invalid user id, try with valid user id",
     "INVALID_USER_ID"
 )
+
+INVALID_RESPONSE_FORM = (
+    "Invalid response form, try with valid response form",
+    "INVALID_RESPONSE_FORM"
+)

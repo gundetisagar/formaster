@@ -9,7 +9,8 @@ from formaster.constants.exception_messages import (
     INVALID_FORM_ID,
     INVALID_ACCESS,
     USER_IS_NOT_ADMIN,
-    USER_IS_NOT_CREATER_OF_FORM
+    USER_IS_NOT_CREATER_OF_FORM,
+    INVALID_RESPONSE_FORM
 )
 from formaster.exceptions.exceptions import (
     InvalidUsername,
@@ -21,7 +22,8 @@ from formaster.exceptions.exceptions import (
     UserCannotDeleteFormException,
     UserCannotUpdateFormException,
     UserIsNotAdmin,
-    UserIsNotCreaterOfForm
+    UserIsNotCreaterOfForm,
+    InvalidResponseForm
 )
 from django_swagger_utils.drf_server.exceptions import (
     NotFound,
@@ -58,6 +60,11 @@ class PresenterImplementation(PresenterInterface):
 
     def raise_exception_for_is_not_admin(self):
         raise UserIsNotAdmin(*USER_IS_NOT_ADMIN)
+
+    def raise_exception_for_invalid_response_form(self):
+        raise InvalidResponseForm(*INVALID_RESPONSE_FORM)
+    
+
 
     def user_login_response(self, tokens_dto, is_admin):
         login_access_dict = {
@@ -157,16 +164,16 @@ class PresenterImplementation(PresenterInterface):
 
     def get_form_view_response(self, list_of_view_form_response_dto):
         list_of_question_responses = []
-        
         for response in list_of_view_form_response_dto:
-            choices = response.choices
             choices_list = []
-            for choice in choices:
-                choice = {
-                    "choice_id": choice.choice_id,
-                    "choice_text": choice.choice_text
-                }
-                choices_list.append(choice)
+            if response.choices:
+                choices = response.choices
+                for choice in choices:
+                    choice = {
+                        "choice_id": choice.choice_id,
+                        "choice_text": choice.choice_text
+                    }
+                    choices_list.append(choice)
             view_response_dict = {
                 "question_id": response.question_id,
                 "question_type": response.question_type,
@@ -181,8 +188,8 @@ class PresenterImplementation(PresenterInterface):
             list_of_question_responses.append(view_response_dict)
 
         form_question_and_response_dict = {
-            "form_id": form_id,
-            "form_title": form_title,
+            "form_id": list_of_view_form_response_dto[0].form_id,
+            "form_title": list_of_view_form_response_dto[0].form_title,
             "question_and_response_list": list_of_question_responses
         }
         return form_question_and_response_dict

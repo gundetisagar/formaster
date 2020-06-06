@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List
 
 
 @dataclass()
@@ -64,10 +64,10 @@ class QuestionResponseDto:
     question_text: str
     required: bool
     description: str
-    choices: Optional[List[ChoiceDto]]
-    response_id: Optional[int]
-    response_text: Optional[str]
-    response_choice_id: Optional[int]
+    choices: List[ChoiceDto]
+    response_id: int
+    response_text: str
+    response_choice_id: int
 
 
 @dataclass()

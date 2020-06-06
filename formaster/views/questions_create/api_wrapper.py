@@ -13,12 +13,11 @@ from formaster.storages.question_storage_implementation import \
 @validate_decorator(validator_class=ValidatorClass)
 def api_wrapper(*args, **kwargs):
     # ---------MOCK IMPLEMENTATION---------
-    print(kwargs,'"\n\n\n\n\n')
     user = kwargs['user']
     user_id = user.id
     form_id = kwargs['form_id']
     request_data = kwargs['request_data']
-    questions_list = request_data['questions_create_list']
+    questions_list = request_data['questions_list']
 
     question_storage = QuestionStorageImplementation()
     interactor = QuestionsCreateInteractor(
@@ -29,10 +28,24 @@ def api_wrapper(*args, **kwargs):
         form_id=form_id,
         questions_list=questions_list
     )
-
     return HttpResponse(status=201)
 
+
 """
+questions_list=[{"question_type": "SMALL_TEXT","question_text": "string","required": True,"description": "string","choices_list": []}]
+    {
+        "question_type": "MCQ",
+        "question_text": "mcq",
+        "required": True,
+        "description": "string",
+        "choices_list": [
+        "choice_1", "choice_2"]
+    }
+    
+]
+    
+]
+
     try:
         from formaster.views.questions_create.tests.test_case_01 \
             import TEST_CASE as test_case

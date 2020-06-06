@@ -4,7 +4,7 @@ from abc import abstractmethod
 from formaster.constants.enums import QuestionTypes
 from formaster.dtos.dtos import (
     FormWithQuestionsDto,
-    ViewFormResponseDto
+    QuestionResponseDto
 )
 
 
@@ -33,7 +33,7 @@ class QuestionStorageInterface:
         pass
 
     @abstractmethod
-    def get_form_view(self, form_id:int) -> List[ViewFormResponseDto]:
+    def get_form_view(self, form_id:int) -> List[QuestionResponseDto]:
         pass
 
     @abstractmethod
