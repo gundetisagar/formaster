@@ -1,0 +1,36 @@
+Initial Commit
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch reporting-portal
+# Changes to be committed:
+#	modified:   formaster/interactors/view_form_response_interactor.py
+#	new file:   reporting_portal/__init__.py
+#	new file:   reporting_portal/adapters/__init__.py
+#	new file:   reporting_portal/adapters/service_adapter.py
+#	new file:   reporting_portal/admin.py
+#	new file:   reporting_portal/api_specs/__init__.py
+#	new file:   reporting_portal/api_specs/api_spec.json
+#	new file:   reporting_portal/app.py
+#	new file:   reporting_portal/conf/__init__.py
+#	new file:   reporting_portal/conf/settings.py
+#	new file:   reporting_portal/constants/__init__.py
+#	new file:   reporting_portal/entities/__init__.py
+#	new file:   reporting_portal/interactors/__init__.py
+#	new file:   reporting_portal/interactors/presenters/__init__.py
+#	new file:   reporting_portal/interactors/storages/__init__.py
+#	new file:   reporting_portal/models/__init__.py
+#	new file:   reporting_portal/presenters/__init__.py
+#	new file:   reporting_portal/signals/__init__.py
+#	new file:   reporting_portal/signals/signals.py
+#	new file:   reporting_portal/storages/__init__.py
+#	new file:   reporting_portal/tests/__init__.py
+#	new file:   reporting_portal/tests/entities/__init__.py
+#	new file:   reporting_portal/tests/interactors/__init__.py
+#	new file:   reporting_portal/tests/presenters/__init__.py
+#	new file:   reporting_portal/tests/storages/__init__.py
+#	new file:   reporting_portal/tests/views/__init__.py
+#	new file:   reporting_portal/utils/__init__.py
+#	new file:   reporting_portal/utils/fixture.py
+#
