@@ -1,4 +1,10 @@
-__all__ = []
+from reporting_portal.models.category import Category
+from reporting_portal.models.category import SubCategory
+
+__all__ = [
+    "Category",
+    "SubCategory"
+]
 
 # class DummyModel(AbstractDateTimeModel):
 #     """
