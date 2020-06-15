@@ -1,0 +1,5 @@
+
+
+
+class ObservationStorageInterface:
+    pass

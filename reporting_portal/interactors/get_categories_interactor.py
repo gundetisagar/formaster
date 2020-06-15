@@ -3,14 +3,13 @@ from reporting_portal.interactors.storages import CategoryStorageInterface
 
 
 class GetCategoriesInteractor:
-    def __init__(self, category_storage: CategoryStorageInterface,
-                 presenter: PresenterInterface):
+    def __init__(self, category_storage: CategoryStorageInterface):
         self.category_storage = category_storage
-        self.presenter = presenter
+
+    def get_categories_wrapper(self, presenter=PresenterInterface):
+        list_of_categories_dto = self.get_categories()
+        presenter.get_categories_responses(list_of_categories_dto)
 
     def get_categories(self):
         list_of_categories_dto = self.category_storage.get_categories()
-        list_of_categories_dict = self.presenter.get_categories_responses(
-            list_of_categories_dto
-        )
-        return list_of_categories_dict
+        return list_of_categories_dto

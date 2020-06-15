@@ -97,11 +97,11 @@
                 "title": {
                     "type": "string"
                 },
-                "category": {
+                "category_id": {
                     "type": "integer",
                     "format": "int32"
                 },
-                "sub_category": {
+                "sub_category_id": {
                     "type": "integer",
                     "format": "int32"
                 },
