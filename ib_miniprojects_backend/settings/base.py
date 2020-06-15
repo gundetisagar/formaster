@@ -31,7 +31,6 @@ ALLOWED_HOSTS = [
 AUTH_USER_MODEL = "formaster.User"
 
 
-
 ROOT_URLCONF = 'ib_miniprojects_backend.urls'
 
 CSRF_COOKIE_SECURE = False
