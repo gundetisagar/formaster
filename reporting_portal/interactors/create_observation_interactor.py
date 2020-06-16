@@ -72,6 +72,15 @@ class CreateObservationInteractor:
 
         self._is_valid_description(description=description)
 
+        self.observation_storage.create_obsevation(
+            user_id=user_id,
+            title=title,
+            category_id=category_id,
+            sub_category_id=sub_category_id,
+            severty=severty,
+            description=description,
+            attachments=attachments)
+
 
     @staticmethod
     def _is_valid_title(title: str):

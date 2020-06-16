@@ -77,3 +77,17 @@ class QuestionDto:
     question_text: str
     required: bool
     description: str
+
+@dataclass()
+class ViewFormResponseDto:
+    form_id: int
+    form_title: str
+    question_id: int
+    question_type: str
+    question_text: str
+    required: bool
+    description: str
+    choices: List[ChoiceDto]
+    response_id: int
+    response_text: str
+    response_choice_id: int

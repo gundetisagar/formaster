@@ -16,3 +16,7 @@ class CategoryStorageInterface():
     @abstractmethod
     def is_valid_sub_category(self, sub_category_id: int):
         pass
+
+    @abstractmethod
+    def get_user_observations(self):
+        pass
