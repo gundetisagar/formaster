@@ -172,8 +172,10 @@ def test_create_observation_with_invalid_sub_categoty_id_raises_exception():
     category_storage.is_valid_sub_category.assert_called_once_with(
         sub_category_id=invalid_sub_category_id
     )
-    presenter.raise_exception_for_invalid_sub_category_id.\
-        assert_called_once_with(error)
+    error = presenter.raise_exception_for_invalid_sub_category_id.\
+        call_args
+    print(error)
+    assert error.args[0].args[0] == invalid_sub_category_id
 
 
 def test_create_observation_with_empty_description_raises_exception():
