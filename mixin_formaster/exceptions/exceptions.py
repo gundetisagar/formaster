@@ -11,3 +11,6 @@ class  QuestionDoesNotBelongToForm(Exception):
 
 class InvalidUserResponseSubmit(Exception):
     pass
+
+class QuestionDoesNotExist(Exception):
+    pass

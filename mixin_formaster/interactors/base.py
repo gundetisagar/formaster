@@ -7,7 +7,8 @@ from mixin_formaster.interactors.storages.storage_interface import \
 from mixin_formaster.interactors.presenters.presenter_interface import \
     PresenterInterface
 from mixin_formaster.exceptions.exceptions import FormDoesNotExist, \
-    FormClosed, QuestionDoesNotBelongToForm, InvalidUserResponseSubmit
+    FormClosed, QuestionDoesNotBelongToForm, InvalidUserResponseSubmit, \
+    QuestionDoesNotExist
 
 
 class BaseSubmitFormResponseInteractor(FormValidationMixin):
@@ -31,6 +32,8 @@ class BaseSubmitFormResponseInteractor(FormValidationMixin):
             presenter.raise_question_does_not_belong_to_form_exception()
         except InvalidUserResponseSubmit:
             presenter.raise_invalid_user_response_submitted()
+        except QuestionDoesNotExist:
+            presenter.raise_question_does_not_exist_exception()
 
     def submit_form_response(self):
         self.storage.is_valid_form_id(self.form_id)

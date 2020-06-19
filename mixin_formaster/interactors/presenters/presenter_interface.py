@@ -21,3 +21,7 @@ class PresenterInterface(ABC):
     @abstractmethod
     def raise_invalid_user_response_submitted(self):
         pass
+
+    @abstractmethod
+    def raise_question_does_not_exist_exception(self):
+        pass

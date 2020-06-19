@@ -9,7 +9,8 @@ from mixin_formaster.interactors.base import \
 from mixin_formaster.interactors.mcq_question import \
     MCQQuestionSubmitFormResponseInteractor
 from mixin_formaster.exceptions.exceptions import FormDoesNotExist, \
-    FormClosed, QuestionDoesNotBelongToForm, InvalidUserResponseSubmit
+    FormClosed, QuestionDoesNotBelongToForm, InvalidUserResponseSubmit, \
+    QuestionDoesNotExist
 from django_swagger_utils.drf_server.exceptions import NotFound
 
 
@@ -89,7 +90,8 @@ class TestBaseSubmitFormResponseInteractor:
 
         storage.validate_question_id_with_form.side_effect = \
             QuestionDoesNotBelongToForm
-        presenter.raise_question_does_not_belong_to_form_exception.side_effect = NotFound
+        presenter.raise_question_does_not_belong_to_form_exception. \
+        side_effect = NotFound
 
         # Act
         with pytest.raises(NotFound):
@@ -101,7 +103,8 @@ class TestBaseSubmitFormResponseInteractor:
         storage.validate_question_id_with_form.assert_called_once_with(
             question_id, form_id
         )
-        presenter.raise_question_does_not_belong_to_form_exception.assert_called_once()
+        presenter.raise_question_does_not_belong_to_form_exception. \
+            assert_called_once()
 
     @staticmethod
     def test_with_form_closed_exception():
@@ -163,7 +166,9 @@ class TestMCQQuestionSubmitFormResponseInteractor:
             )
 
         # Assert
-        storage.get_option_ids_for_question.assert_called_once_with(question_id)
+        storage.get_option_ids_for_question.assert_called_once_with(
+            question_id
+        )
         presenter.raise_invalid_user_response_submitted.assert_called_once()
 
 
@@ -188,7 +193,7 @@ class TestMCQQuestionSubmitFormResponseInteractor:
         )
 
         storage.get_option_ids_for_question.return_value = option_ids
-        storage.validate_question_id.return_value = True
+        #storage.validate_question_id.return_value = True
         storage.create_user_mcq_response.return_value = response_id
         presenter.submit_form_response_return.return_value = response_id
 
@@ -198,8 +203,49 @@ class TestMCQQuestionSubmitFormResponseInteractor:
             )
 
         # Assert
-        storage.get_option_ids_for_question.assert_called_once_with(question_id)
+        storage.get_option_ids_for_question.assert_called_once_with(
+            question_id
+        )
         storage.create_user_mcq_response.assert_called_once_with(
             user_id, form_id, user_submitted_option_id
         )
         assert response_id == user_response_id
+
+    @staticmethod
+    def test_invalid_question_id():
+        # Arrange
+        user_id = 1
+        form_id = 1
+        question_id = 1
+        user_submitted_option_id = 1
+        option_ids = [1, 3]
+        # response_id = 1
+
+        storage = create_autospec(StorageInterface)
+        presenter = create_autospec(PresenterInterface)
+        interactor = MCQQuestionSubmitFormResponseInteractor(
+            storage=storage,
+            question_id=question_id,
+            form_id=form_id,
+            user_id=user_id,
+            user_submitted_option_id=user_submitted_option_id
+        )
+
+        storage.get_option_ids_for_question.return_value = option_ids
+        storage.validate_question_id.return_value = True
+        storage.validate_question_id.side_effect = QuestionDoesNotExist
+        presenter.raise_question_does_not_exist_exception.side_effect = \
+            NotFound
+        # storage.create_user_mcq_response.return_value = response_id
+        # presenter.submit_form_response_return.return_value = response_id
+
+        # Act
+        with pytest.raises(NotFound):
+            interactor.submit_form_response_wrapper(
+                presenter=presenter
+            )
+
+        # Assert
+        storage.validate_question_id.assert_called_once_with(question_id)
+        presenter.raise_question_does_not_exist_exception. \
+            assert_called_once()
