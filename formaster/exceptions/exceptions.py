@@ -38,3 +38,6 @@ class UserIsNotCreaterOfForm(Exception):
 
 class InvalidResponseForm(Exception):
     pass
+
+class UserNotAdmin(Exception):
+    pass

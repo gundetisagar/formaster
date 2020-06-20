@@ -10,7 +10,7 @@ from formaster.dtos.dtos import (
     FormTitleWithIdDto,
     FormWithQuestionsDto,
     ChoiceDto,
-    ViewFormResponseDto
+    #ViewFormResponseDto
 )
 
 from formaster.constants.enums import QuestionTypes
@@ -112,7 +112,7 @@ def form_with_questions_dto():
                 choice_id=1,
                 choice_text='option A'),
             ChoiceDto(
-                choice_id=2, 
+                choice_id=2,
                 choice_text='option B'
             )
         ]
@@ -133,19 +133,19 @@ def list_of_choices_dtos():
 
 
 
-@pytest.fixture()
-def view_form_response_dto():
-    list_of_view_form_response_dto = [ViewFormResponseDto(
-        form_id=1,
-        form_title="Snacks Form",
-        question_id=1,
-        question_type=QuestionTypes.LARGE_TEXT.value,
-        question_text="create question",
-        required=True,
-        description="about create question",
-        choices=[],
-        response_id=1,
-        response_text="my answer",
-        response_choice_id=None
-    )]
-    return list_of_view_form_response_dto
+# @pytest.fixture()
+# def view_form_response_dto():
+#     list_of_view_form_response_dto = [ViewFormResponseDto(
+#         form_id=1,
+#         form_title="Snacks Form",
+#         question_id=1,
+#         question_type=QuestionTypes.LARGE_TEXT.value,
+#         question_text="create question",
+#         required=True,
+#         description="about create question",
+#         choices=[],
+#         response_id=1,
+#         response_text="my answer",
+#         response_choice_id=None
+#     )]
+#     return list_of_view_form_response_dto

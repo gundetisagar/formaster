@@ -5,7 +5,7 @@ from formaster.dtos.dtos import (
     UserDetailsDto,
     FormWithQuestionsDto,
     ChoiceDto,
-    ViewFormResponseDto
+    #ViewFormResponseDto
 )
 from formaster.constants.enums import QuestionTypes
 
@@ -108,22 +108,22 @@ def list_of_questions_dict():
     return list_of_questions
 
 
-@pytest.fixture()
-def view_form_response_dto():
-    list_of_view_form_response_dto = [ViewFormResponseDto(
-        form_id=1,
-        form_title="food form",
-        question_id=1,
-        question_type=QuestionTypes.LARGE_TEXT.value,
-        question_text="what is your name?",
-        required=True,
-        description="About question",
-        choices=list_of_choices_dtos(),
-        response_id=1,
-        response_text="dummy name",
-        response_choice_id=1
-    )]
-    return list_of_view_form_response_dto
+# @pytest.fixture()
+# def view_form_response_dto():
+#     list_of_view_form_response_dto = [ViewFormResponseDto(
+#         form_id=1,
+#         form_title="food form",
+#         question_id=1,
+#         question_type=QuestionTypes.LARGE_TEXT.value,
+#         question_text="what is your name?",
+#         required=True,
+#         description="About question",
+#         choices=list_of_choices_dtos(),
+#         response_id=1,
+#         response_text="dummy name",
+#         response_choice_id=1
+#     )]
+#     return list_of_view_form_response_dto
 
 @pytest.fixture()
 def view_from_response_dict():

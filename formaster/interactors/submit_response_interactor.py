@@ -54,7 +54,7 @@ class SubmitResponseInteractor:
                     response_text,
                     choice_id
                 )
-            
+
 
         # try:
         #     old_reaction = self.reaction_storage.get_reaction_of_post(

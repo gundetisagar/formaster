@@ -4,7 +4,7 @@ from formaster.dtos.dtos import (
     UserDetailsDto,
     FormWithQuestionsDto,
     ChoiceDto,
-    ViewFormResponseDto
+    #ViewFormResponseDto
 )
 from formaster.constants.enums import QuestionTypes
 
@@ -77,7 +77,7 @@ def form_with_questions_dto():
                 choice_id=1,
                 choice_text='option A'),
             ChoiceDto(
-                choice_id=2, 
+                choice_id=2,
                 choice_text='option B'
             )
         ]
@@ -127,29 +127,29 @@ def view_form_response_text_question_dto():
     )]
     return list_of_view_form_response_dto
 
-@pytest.fixture()
-def view_form_response_mcq_question_dto():
-    choice_1 = ChoiceDto(
-        choice_id=1,
-        choice_text="option A"
-    )
-    choice_2 = ChoiceDto(
-        choice_id=2,
-        choice_text="option B"
-    )
-    choices_list = [choice_1, choice_2]
-    list_of_view_form_response_dto = [ViewFormResponseDto(
-        form_id=1,
-        form_title="Snacks Form",
-        question_id=1,
-        question_type=QuestionTypes.MCQ.value,
-        question_text="quantity of packets",
-        required=True,
-        description=None,
-        choices=choices_list,
-        response_id=1,
-        response_text=None,
-        response_choice_id=1
-    )]
-    return list_of_view_form_response_dto
+# @pytest.fixture()
+# def view_form_response_mcq_question_dto():
+#     choice_1 = ChoiceDto(
+#         choice_id=1,
+#         choice_text="option A"
+#     )
+#     choice_2 = ChoiceDto(
+#         choice_id=2,
+#         choice_text="option B"
+#     )
+#     choices_list = [choice_1, choice_2]
+#     list_of_view_form_response_dto = [ViewFormResponseDto(
+#         form_id=1,
+#         form_title="Snacks Form",
+#         question_id=1,
+#         question_type=QuestionTypes.MCQ.value,
+#         question_text="quantity of packets",
+#         required=True,
+#         description=None,
+#         choices=choices_list,
+#         response_id=1,
+#         response_text=None,
+#         response_choice_id=1
+#     )]
+#     return list_of_view_form_response_dto
 
