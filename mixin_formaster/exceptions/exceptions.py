@@ -8,9 +8,14 @@ class FormClosed(Exception):
 class  QuestionDoesNotBelongToForm(Exception):
     pass
 
+class UserDoesNotBelongToForm(Exception):
+    pass
 
 class InvalidUserResponseSubmit(Exception):
     pass
 
 class QuestionDoesNotExist(Exception):
+    pass
+
+class InvalidAccess(Exception):
     pass

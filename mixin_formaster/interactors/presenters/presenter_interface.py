@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from mixin_formaster.dtos.dtos import FormQuestionsAndResponseDetailsDTO
+
 
 class PresenterInterface(ABC):
 
@@ -24,4 +26,9 @@ class PresenterInterface(ABC):
 
     @abstractmethod
     def raise_question_does_not_exist_exception(self):
+        pass
+
+    @abstractmethod
+    def user_get_questions_response(self,
+            form_questions_and_response_details: FormQuestionsAndResponseDetailsDTO):
         pass
