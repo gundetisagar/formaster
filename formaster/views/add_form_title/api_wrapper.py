@@ -15,7 +15,7 @@ from formaster.storages.user_storage_implementation import \
 
 @validate_decorator(validator_class=ValidatorClass)
 def api_wrapper(*args, **kwargs):
-    # ---------MOCK IMPLEMENTATION---------
+
     user = kwargs['user']
     request_data = kwargs['request_data']
     form_title = request_data['form_title']

@@ -14,7 +14,7 @@ from formaster.storages.form_storage_implementation import \
 
 @validate_decorator(validator_class=ValidatorClass)
 def api_wrapper(*args, **kwargs):
-    # ---------MOCK IMPLEMENTATION---------
+
     user = kwargs['user']
     user_id = user.id
     form_storage = FormStorageImplimentation()
@@ -24,6 +24,7 @@ def api_wrapper(*args, **kwargs):
         form_storage=form_storage,
         presenter=presenter
     )
+    print("in interactor")
 
     forms_list = interactor.get_forms(user_id=user_id)
 

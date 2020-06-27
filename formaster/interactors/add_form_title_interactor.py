@@ -16,8 +16,12 @@ class AddFormTitleInteractor:
         self.presenter = presenter
 
     def add_form_title(self, user_id: int, form_title: str):
+
         try:
+            print(user_id)
+            print(form_title)
             self.user_storage.validate_is_admin(user_id=user_id)
+
         except Forbidden:
             self.presenter.raise_exception_for_is_not_admin()
             return
