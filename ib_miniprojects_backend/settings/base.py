@@ -28,7 +28,7 @@ ALLOWED_HOSTS = [
     "*"
 ]
 
-AUTH_USER_MODEL = "formaster.User"
+AUTH_USER_MODEL = "formaster_auth.User"
 
 
 
@@ -343,7 +343,7 @@ MOCK_X_IB_REQUEST_ID = True
 
 STAGE = os.environ.get("STAGE", "local")
 
-DEFAULT_OAUTH_APPLICATION_NAME = "formaster"
+DEFAULT_OAUTH_APPLICATION_NAME = "formaster_auth"
 DEFAULT_OAUTH_CLIENT_ID = ""
 DEFAULT_OAUTH_CLIENT_SECRET = ""
 DEFAULT_OAUTH_SCOPES = "read write"

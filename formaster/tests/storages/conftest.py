@@ -1,7 +1,6 @@
 import pytest
 #from datetime import datetime
 #from freezegun import freeze_time
-from formaster.models.user import User
 from formaster.models.form import Form
 from formaster.models.question import Question
 from formaster.models.choices import Choices
@@ -10,31 +9,32 @@ from formaster.dtos.dtos import (
     FormTitleWithIdDto,
     FormWithQuestionsDto,
     ChoiceDto,
+    FormDetailsDto
     #ViewFormResponseDto
 )
 
 from formaster.constants.enums import QuestionTypes
 
 
-@pytest.fixture()
-def create_user():
-    user = User.objects.create(
-        username="username",
-        password="password",
-        is_admin=True
-    )
-    user.set_password(user.password)
-    user.save()
+# @pytest.fixture()
+# def create_user():
+#     user = User.objects.create(
+#         username="username",
+#         password="password",
+#         is_admin=True
+#     )
+#     user.set_password(user.password)
+#     user.save()
 
-@pytest.fixture()
-def create_second_user():
-    user = User.objects.create(
-        username="username_2",
-        password="password_2",
-        is_admin=False
-    )
-    user.set_password(user.password)
-    user.save()
+# @pytest.fixture()
+# def create_second_user():
+#     user = User.objects.create(
+#         username="username_2",
+#         password="password_2",
+#         is_admin=False
+#     )
+#     user.set_password(user.password)
+#     user.save()
 
 @pytest.fixture()
 def create_two_form_titles():
@@ -96,6 +96,16 @@ def form_title_with_id_dto():
         form_id=1
     )
     return form_title_with_id
+
+@pytest.fixture()
+def form_details_dto():
+    form_details = FormDetailsDto(
+        form_title="Snacks Form",
+        form_id=1
+    )
+    return form_details
+
+
 
 @pytest.fixture()
 def form_with_questions_dto():

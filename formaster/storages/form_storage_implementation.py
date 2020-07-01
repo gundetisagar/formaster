@@ -3,7 +3,7 @@ from formaster.interactors.storages.form_storage_interface import \
     FormStorageInterface
 from formaster.models.form import Form
 from formaster.models import AssignForm
-from formaster.dtos.dtos import FormTitleWithIdDto
+from formaster.dtos.dtos import FormTitleWithIdDto, FormDetailsDto
 from formaster.exceptions.exceptions import (
     InvalidFormId,
     UserIsNotCreaterOfForm
@@ -13,21 +13,21 @@ from formaster.exceptions.exceptions import (
 class FormStorageImplimentation(FormStorageInterface):
 
     def add_form_title(self, user_id: int,
-                       form_title: str) -> FormTitleWithIdDto:
+                       form_title: str) -> FormDetailsDto:
         form_obj = Form.objects.create(
-            created_by_id=user_id,
+            user_id=user_id,
             form_title=form_title
         )
-        form_title_with_id_dto = self._convert_form_object_to_dto(form_obj)
-        return form_title_with_id_dto
+        form_details_dto = self._convert_form_object_to_dto(form_obj)
+        return form_details_dto
 
     @staticmethod
     def _convert_form_object_to_dto(form_obj):
-        form_title_with_id_dto = FormTitleWithIdDto(
+        form_details = FormDetailsDto(
             form_title=form_obj.form_title,
             form_id=form_obj.id
         )
-        return form_title_with_id_dto
+        return form_details
 
 
     def get_forms(self, user_id: int) -> List[FormTitleWithIdDto]:
@@ -55,6 +55,7 @@ class FormStorageImplimentation(FormStorageInterface):
         return list_of_form_titles_with_id_dto
 
     def validate_form_id(self, form_id: int) -> bool:
+
         try:
             Form.objects.get(id=form_id)
         except Form.DoesNotExist:

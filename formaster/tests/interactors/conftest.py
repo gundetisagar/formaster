@@ -5,6 +5,7 @@ from formaster.dtos.dtos import (
     UserDetailsDto,
     FormWithQuestionsDto,
     ChoiceDto,
+    FormDetailsDto
     #ViewFormResponseDto
 )
 from formaster.constants.enums import QuestionTypes
@@ -30,6 +31,15 @@ def user_profile_dtos():
         is_admin=True
     )
     return user_details_dto
+
+@pytest.fixture()
+def form_details_dto():
+    form_details = FormDetailsDto(
+        form_title="Sanck Form",
+        form_id=1
+    )
+    return form_details
+
 
 @pytest.fixture()
 def form_title_with_id_dto():

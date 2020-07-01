@@ -23,6 +23,12 @@ class FormTitleWithIdDto:
 
 
 @dataclass()
+class FormDetailsDto:
+    form_title: str
+    form_id: int
+
+
+@dataclass()
 class ChoiceDto:
     choice_id: int
     choice_text: str

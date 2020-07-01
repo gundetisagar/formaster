@@ -41,3 +41,7 @@ class InvalidResponseForm(Exception):
 
 class UserNotAdmin(Exception):
     pass
+
+class UserDoesNotExist(Exception):
+    pass
+

@@ -33,39 +33,6 @@
         }
     },
     "paths": {
-        "/login/v1/": {
-            "post": {
-                "operationId": "login",
-                "summary": "Login",
-                "parameters": [{
-                    "$ref": "#/parameters/LoginParameter"
-                }],
-                "responses": {
-                    "200": {
-                        "$ref": "#/responses/LoginResponse"
-                    },
-                    "401": {
-                        "$ref": "#/responses/InvalidUsernameOrPasswordResponse"
-                    }
-                }
-            }
-        },
-        "/get_profile/v1/": {
-            "get": {
-                "operationId": "get_profile",
-                "summary": "User Details",
-                "security": [{
-                    "oauth": [
-                        "read"
-                    ]
-                }],
-                "responses": {
-                    "200": {
-                        "$ref": "#/responses/UserDetailsResponses"
-                    }
-                }
-            }
-        },
         "/add_form_title/v1/": {
             "post": {
                 "operationId": "add_form_title",
@@ -338,15 +305,6 @@
         }
     },
     "parameters": {
-        "LoginParameter": {
-            "name": "login_form",
-            "in": "body",
-            "description": "Enter your login details",
-            "required": true,
-            "schema": {
-                "$ref": "#/definitions/Login"
-            }
-        },
         "FormTitleParameter": {
             "name": "Form_Title",
             "in": "body",
@@ -482,12 +440,6 @@
         "InvalidFormTitleResponse": {
             "description": "Invalid_form_title"
         },
-        "UserDetailsResponses": {
-            "description": "returns user details",
-            "schema": {
-                "$ref": "#/definitions/UserDetails"
-            }
-        },
         "FormWithQuestionsResponse": {
             "description": "returns form questions",
             "schema": {
@@ -539,32 +491,6 @@
         }
     },
     "definitions": {
-        "Login": {
-            "type": "object",
-            "properties": {
-                "username": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "username",
-                "password"
-            ]
-        },
-        "UserDetails": {
-            "type": "object",
-            "properties": {
-                "username": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "username"
-            ]
-        },
         "FormTitle": {
             "type": "object",
             "properties": {

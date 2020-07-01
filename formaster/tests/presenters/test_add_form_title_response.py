@@ -4,7 +4,7 @@ from formaster.presenters.presenter_implementation import \
 
 
 
-def test_add_form_title_response(form_title_with_id_dto):
+def test_add_form_title_response(form_details_dto):
     # Arrange
     presenter = PresenterImplementation()
     expected_form_details = {
@@ -13,7 +13,7 @@ def test_add_form_title_response(form_title_with_id_dto):
     }
 
     # Act
-    json = presenter.add_form_title_response(form_title_with_id_dto)
+    form_details_dict = presenter.add_form_title_response(form_details_dto)
 
     # Act
-    assert expected_form_details == json
+    assert expected_form_details == form_details_dict

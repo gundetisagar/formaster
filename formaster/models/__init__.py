@@ -1,4 +1,3 @@
-from formaster.models.user import User
 from formaster.models.choices import Choices
 from formaster.models.form import Form
 from formaster.models.question import Question
@@ -7,7 +6,6 @@ from formaster.models.assign_forms import AssignForm
 
 
 __all__ = [
-    "User",
     "Choices",
     "Form",
     "Question",

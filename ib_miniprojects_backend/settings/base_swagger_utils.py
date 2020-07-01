@@ -20,6 +20,7 @@ from django_swagger_utils.drf_server.utils.general.import_app_settings import \
 
 THIRD_PARTY_APPS = []
 APPS = [
+    "formaster_auth",
     "formaster"
 ]
 
@@ -63,6 +64,7 @@ SWAGGER_UTILS = {
         }
     },
     "APPS": {
+        "formaster_auth": {},
         "formaster": {}
     },
     "HOST": os.environ.get('APIGATEWAY_ENDPOINT', '127.0.0.1:8080'),

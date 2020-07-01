@@ -5,7 +5,8 @@ from formaster.dtos.dtos import (
     UserDetailsDto,
     FormTitleWithIdDto,
     FormWithQuestionsDto,
-    QuestionResponseDto
+    QuestionResponseDto,
+    FormDetailsDto
 )
 
 class PresenterInterface():
@@ -25,11 +26,19 @@ class PresenterInterface():
         pass
 
     @abstractmethod
+    def raise_exception_for_invalid_user_id(self):
+        pass
+
+    @abstractmethod
+    def raise_exception_for_user_is_not_admin(self):
+        pass
+
+    @abstractmethod
     def get_user_profile_response(self, user_profile_dto: UserDetailsDto):
         pass
 
     @abstractmethod
-    def add_form_title_response(self, form_title_dto: FormTitleWithIdDto):
+    def add_form_title_response(self, form_details_dto: FormDetailsDto):
         pass
 
     @abstractmethod

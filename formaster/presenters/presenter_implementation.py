@@ -63,7 +63,7 @@ class PresenterImplementation(PresenterInterface):
 
     def raise_exception_for_invalid_response_form(self):
         raise InvalidResponseForm(*INVALID_RESPONSE_FORM)
-    
+
 
 
     def user_login_response(self, tokens_dto, is_admin):
@@ -83,45 +83,45 @@ class PresenterImplementation(PresenterInterface):
         }
         return user_profile_dict
 
-    def add_form_title_response(self, form_title_with_id_dto):
-        form_title_with_id_dict = self._convert_form_title_with_id_dto_to_dict(
-            form_title_with_id_dto)
-        return form_title_with_id_dict
+    def add_form_title_response(self, form_details_dto):
+        form_details_dict = self._convert_form_details_dto_to_dict(
+            form_details_dto)
+        return form_details_dict
 
 
     def get_forms_response(self, list_of_form_titles_with_id_dto):
-        list_of_form_title_with_id_dict = []
-        for form_title_with_id_dto in list_of_form_titles_with_id_dto:
-            form_title_with_id_dict = \
-                        self._convert_form_title_with_id_dto_to_dict(
-                            form_title_with_id_dto
+        list_of_form_details_dict = []
+        for form_details_dto in list_of_form_titles_with_id_dto:
+            form_details_dict = \
+                        self._convert_form_details_dto_to_dict(
+                            form_details_dto
                         )
-            list_of_form_title_with_id_dict.append(form_title_with_id_dict)
+            list_of_form_details_dict.append(form_details_dict)
         list_forms_dict = {
-            "forms_list": list_of_form_title_with_id_dict
+            "forms_list": list_of_form_details_dict
         }
         return list_forms_dict
 
     def get_user_forms_response(self, list_of_form_titles_with_id_dto):
-        list_of_form_title_with_id_dict = []
-        for form_title_with_id_dto in list_of_form_titles_with_id_dto:
-            form_title_with_id_dict = \
-                        self._convert_form_title_with_id_dto_to_dict(
-                            form_title_with_id_dto
+        list_of_form_details_dict = []
+        for form_details_dto in list_of_form_titles_with_id_dto:
+            form_details_dict = \
+                        self._convert_form_details_dto_to_dict(
+                            form_details_dto
                         )
-            list_of_form_title_with_id_dict.append(form_title_with_id_dict)
+            list_of_form_details_dict.append(form_details_dict)
         list_forms_dict = {
-            "forms_list": list_of_form_title_with_id_dict
+            "forms_list": list_of_form_details_dict
         }
         return list_forms_dict
 
 
-    def _convert_form_title_with_id_dto_to_dict(self, form_title_with_id_dto):
-        form_title_with_id_dict = {
-            "form_title": form_title_with_id_dto.form_title,
-            "form_id": form_title_with_id_dto.form_id
+    def _convert_form_details_dto_to_dict(self, form_details_dto):
+        form_details_dict = {
+            "form_title": form_details_dto.form_title,
+            "form_id": form_details_dto.form_id
         }
-        return form_title_with_id_dict
+        return form_details_dict
 
 
     def get_form_with_questions_response(self,
@@ -129,7 +129,7 @@ class PresenterImplementation(PresenterInterface):
         list_of_questions_dict = []
         if form_with_list_of_questions_dto:
             for question in form_with_list_of_questions_dto:
-    
+
                 choices = question.choices
                 choices_list = []
                 for choice in choices:
@@ -138,7 +138,7 @@ class PresenterImplementation(PresenterInterface):
                         "choice_text": choice.choice_text
                     }
                     choices_list.append(choice)
-    
+
                 question_dict = {
                     "question_id": question.question_id,
                     "question_type": question.question_type,
@@ -195,9 +195,9 @@ class PresenterImplementation(PresenterInterface):
         return form_question_and_response_dict
 
 
-    def update_form_title_response(self, form_title_with_id_dto):
-        form_title_with_id_dict = \
-            self._convert_form_title_with_id_dto_to_dict(
-                form_title_with_id_dto
+    def update_form_title_response(self, form_details_dto):
+        form_details_dict = \
+            self._convert_form_details_dto_to_dict(
+                form_details_dto
             )
-        return form_title_with_id_dict
+        return form_details_dict
