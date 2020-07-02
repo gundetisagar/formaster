@@ -1,18 +1,6 @@
-class InvalidUserId(Exception):
-    pass
-
-class InvalidPassword(Exception):
-    pass
-
-class InvalidUsername(Exception):
-    pass
-
-class DoesNotExist(Exception):
-    pass
 
 class InvalidQuestionType(Exception):
     pass
-
 
 class InvalidQuestionId(Exception):
     pass
@@ -24,13 +12,13 @@ class InvalidChoiceId(Exception):
 class InvalidFormId(Exception):
     pass
 
+class FormDoesNotExist(Exception):
+    pass
+
 class UserCannotDeleteFormException(Exception):
     pass
 
 class UserCannotUpdateFormException(Exception):
-    pass
-
-class UserIsNotAdmin(Exception):
     pass
 
 class UserIsNotCreaterOfForm(Exception):
@@ -38,10 +26,3 @@ class UserIsNotCreaterOfForm(Exception):
 
 class InvalidResponseForm(Exception):
     pass
-
-class UserNotAdmin(Exception):
-    pass
-
-class UserDoesNotExist(Exception):
-    pass
-

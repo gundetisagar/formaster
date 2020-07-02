@@ -6,20 +6,6 @@ from formaster_auth.interactors.validate_is_admin import \
 	ValidateIsAdminInteractor
 from formaster_auth.exceptions.exceptions import InvalidUserId, UserIsNotAdmin
 
-def test_validate_is_admin_with_invalid_user():
-	#Arrange
-	user_id = 0
-	user_storage = create_autospec(UserStorageInterface)
-	interactor = ValidateIsAdminInteractor(
-		user_storage=user_storage
-	)
-	user_storage.validate_is_admin.side_effect = InvalidUserId
-
-	#Act
-	with pytest.raises(InvalidUserId):
-		interactor.validate_is_admin(user_id)
-
-
 
 def test_validate_is_admin_with_user_exists_but_not_admin():
 	#Arrange

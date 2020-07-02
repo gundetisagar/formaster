@@ -31,7 +31,10 @@ class GetUserProfileInteractor:
 
     def get_user_profile(self, user_id: int):
 
-        self.user_storage.validate_user_id(user_id)
+        is_valid_user = self.user_storage.validate_user_id(user_id)
+        is_invalid_user = not is_valid_user
+        if is_invalid_user:
+            raise UserDoesNotExist
 
         user_profile_dto = self.user_storage.get_user_profile(user_id)
 

@@ -7,7 +7,7 @@ from formaster.interactors.presenters.presenter_interface import \
 from formaster.interactors.storages.form_storage_interface import \
     FormStorageInterface
 from formaster.adapters.user_service import UserService
-from formaster.exceptions.exceptions import UserIsNotAdmin, UserDoesNotExist
+from formaster_auth.exceptions.exceptions import UserIsNotAdmin, UserDoesNotExist
 from django_swagger_utils.drf_server.exceptions import Forbidden, NotFound
 
 
@@ -38,6 +38,10 @@ class TestAddFormTite:
                 presenter=presenter
             )
 
+        # Assert
+        interface_mock.validate_user_id.assert_called_once_with(user_id)
+        presenter.raise_exception_for_invalid_user_id.assert_called_once()
+
     @staticmethod
     @patch.object(UserService, "interface")
     def test_with_valid_user_id_returns_true(interface_mock):
@@ -65,9 +69,10 @@ class TestAddFormTite:
         interface_mock.validate_user_id.assert_called_once_with(user_id)
         presenter.raise_exception_for_invalid_user_id.assert_not_called()
 
+
     @staticmethod
     @patch.object(UserService, "interface")
-    def test_with_user_not_admin_raises_exception(interface_mock):
+    def test_with_user_is_not_admin_raises_exception(interface_mock):
         # Arrange
         user_id = 1
         form_title = "Snacks Form"
@@ -101,6 +106,7 @@ class TestAddFormTite:
         form_title = "Snacks Form"
         form_storage = create_autospec(FormStorageInterface)
         presenter = create_autospec(PresenterInterface)
+
         interface_mock.validate_is_admin.return_value = True
 
         interactor = AddFormTitleInteractor(

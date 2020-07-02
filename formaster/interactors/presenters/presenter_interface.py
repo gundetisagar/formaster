@@ -81,7 +81,7 @@ class PresenterInterface():
         pass
 
     @abstractmethod
-    def raise_exception_for_user_cannot_delete_form(self):
+    def raise_exception_for_user_is_not_creater_of_form(self):
         pass
 
     @abstractmethod

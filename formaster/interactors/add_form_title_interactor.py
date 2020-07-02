@@ -5,7 +5,8 @@ from formaster.interactors.presenters.presenter_interface import \
 from django_swagger_utils.drf_server.exceptions import Forbidden
 
 from formaster.adapters.service_adapter import service_adapter
-from formaster.exceptions.exceptions import UserIsNotAdmin, UserDoesNotExist
+from formaster_auth.exceptions.exceptions import UserIsNotAdmin, \
+        UserDoesNotExist
 
 
 class AddFormTitleInteractor:
