@@ -39,6 +39,7 @@ class UserStorageImplementation(UserStorageInterface):
     def validate_is_admin(self, user_id: int) -> bool:
         try:
             user = User.objects.get(id=user_id)
+            print(user.is_admin)
         except User.DoesNotExist:
              raise InvalidUserId
         if user.is_admin == True:

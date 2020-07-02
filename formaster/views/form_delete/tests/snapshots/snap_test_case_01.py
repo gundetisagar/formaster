@@ -7,20 +7,17 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
-snapshots['TestCase01AddFormTitleAPITestCase::test_case status'] = 201
+snapshots['TestCase01FormDeleteAPITestCase::test_case status'] = 200
 
-snapshots['TestCase01AddFormTitleAPITestCase::test_case body'] = {
-    'form_id': 1,
-    'form_title': 'my first form'
-}
+snapshots['TestCase01FormDeleteAPITestCase::test_case body'] = b''
 
-snapshots['TestCase01AddFormTitleAPITestCase::test_case header_params'] = {
+snapshots['TestCase01FormDeleteAPITestCase::test_case header_params'] = {
     'content-language': [
         'Content-Language',
         'en'
     ],
     'content-length': [
-        '45',
+        '0',
         'Content-Length'
     ],
     'content-type': [
@@ -37,6 +34,4 @@ snapshots['TestCase01AddFormTitleAPITestCase::test_case header_params'] = {
     ]
 }
 
-snapshots['TestCase01AddFormTitleAPITestCase::test_case form title'] = 'my first form'
-
-snapshots['TestCase01AddFormTitleAPITestCase::test_case form_id'] = 1
+snapshots['TestCase01FormDeleteAPITestCase::test_case form doesnot exists'] = False

@@ -10,15 +10,26 @@ snapshots = Snapshot()
 snapshots['TestCase01GetFormAPITestCase::test_case status'] = 200
 
 snapshots['TestCase01GetFormAPITestCase::test_case body'] = {
-    'questions_list': [
+    'forms_list': [
         {
-            'description': 'string',
-            'mcq_details': [
-                'string'
-            ],
-            'question_id': 1,
-            'question_title': 'string',
-            'required': True
+            'form_id': 1,
+            'form_title': 'title_0'
+        },
+        {
+            'form_id': 2,
+            'form_title': 'title_1'
+        },
+        {
+            'form_id': 3,
+            'form_title': 'title_2'
+        },
+        {
+            'form_id': 4,
+            'form_title': 'title_3'
+        },
+        {
+            'form_id': 5,
+            'form_title': 'title_4'
         }
     ]
 }
@@ -29,12 +40,12 @@ snapshots['TestCase01GetFormAPITestCase::test_case header_params'] = {
         'en'
     ],
     'content-length': [
-        '128',
+        '221',
         'Content-Length'
     ],
     'content-type': [
         'Content-Type',
-        'application/json'
+        'text/html; charset=utf-8'
     ],
     'vary': [
         'Accept-Language, Origin',

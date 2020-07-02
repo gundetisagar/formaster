@@ -7,7 +7,6 @@ from formaster.exceptions.exceptions import UserIsNotAdmin
 
 class GetFormsInteractor:
     def __init__(self, form_storage: FormStorageInterface,
-    
                  presenter: PresenterInterface):
         self.form_storage = form_storage
         self.presenter = presenter
@@ -21,4 +20,5 @@ class GetFormsInteractor:
         list_of_forms_dict = self.presenter.get_forms_response(
             list_of_form_titles_with_id_dto
         )
+
         return list_of_forms_dict
