@@ -8,7 +8,6 @@ class QuestionTypes(enum.Enum):
     MCQ = "MCQ"
     THANK_YOU_SCREEN = "THANK_YOU_SCREEN"
 
-
 TYPES_OF_TEXT_QUESTIONS = [QuestionTypes.WELCOME_SCREEN.value,
                            QuestionTypes.THANK_YOU_SCREEN.value,
                            QuestionTypes.SMALL_TEXT.value,
