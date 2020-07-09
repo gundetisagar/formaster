@@ -5,11 +5,13 @@ from formaster.constants.enums import QuestionTypes
 
 
 class Question(models.Model):
+    question_types = [(question_type.value, question_type.name)
+                      for question_type in QuestionTypes
+    ]
+
     question_type = models.CharField(
         max_length=50,
-        choices=[(question_type.value, question_type.name)
-                 for question_type in QuestionTypes
-                ]
+        choices=question_types
     )
     question_text = models.TextField()
     required = models.BooleanField(default=False)

@@ -1,7 +1,7 @@
 from unittest.mock import create_autospec, patch
 import pytest
-from formaster.interactors.add_form_title_interactor import \
-    AddFormTitleInteractor
+from formaster.interactors.create_form_interactor import \
+    CreateFormInteractor
 from formaster.interactors.presenters.presenter_interface import \
     PresenterInterface
 from formaster.interactors.storages.form_storage_interface import \
@@ -11,7 +11,7 @@ from formaster_auth.exceptions.exceptions import UserIsNotAdmin, UserDoesNotExis
 from django_swagger_utils.drf_server.exceptions import Forbidden, NotFound
 
 
-class TestAddFormTite:
+class TestCreateForm:
 
     @staticmethod
     @patch.object(UserService, "interface")
@@ -22,7 +22,7 @@ class TestAddFormTite:
         form_storage = create_autospec(FormStorageInterface)
         presenter = create_autospec(PresenterInterface)
 
-        interactor = AddFormTitleInteractor(
+        interactor = CreateFormInteractor(
             form_storage=form_storage,
             presenter=presenter
         )
@@ -32,7 +32,7 @@ class TestAddFormTite:
 
         # Act
         with pytest.raises(NotFound):
-            interactor.add_form_title_wrapper(
+            interactor.create_form_wrapper(
                 user_id=user_id,
                 form_title=form_title,
                 presenter=presenter
@@ -51,7 +51,7 @@ class TestAddFormTite:
         form_storage = create_autospec(FormStorageInterface)
         presenter = create_autospec(PresenterInterface)
 
-        interactor = AddFormTitleInteractor(
+        interactor = CreateFormInteractor(
             form_storage=form_storage,
             presenter=presenter
         )
@@ -59,7 +59,7 @@ class TestAddFormTite:
         interface_mock.validate_user_id.return_value = True
 
         # Act
-        interactor.add_form_title_wrapper(
+        interactor.create_form_wrapper(
             user_id=user_id,
             form_title=form_title,
             presenter=presenter
@@ -81,14 +81,14 @@ class TestAddFormTite:
         interface_mock.validate_is_admin.side_effect = UserIsNotAdmin
         presenter.raise_exception_for_user_is_not_admin.side_effect = Forbidden
 
-        interactor = AddFormTitleInteractor(
+        interactor = CreateFormInteractor(
             form_storage=form_storage,
             presenter=presenter
         )
 
         # Act
         with pytest.raises(Forbidden):
-            interactor.add_form_title_wrapper(
+            interactor.create_form_wrapper(
                 user_id=user_id,
                 form_title=form_title,
                 presenter=presenter
@@ -109,13 +109,13 @@ class TestAddFormTite:
 
         interface_mock.validate_is_admin.return_value = True
 
-        interactor = AddFormTitleInteractor(
+        interactor = CreateFormInteractor(
             form_storage=form_storage,
             presenter=presenter
         )
 
         # Act
-        interactor.add_form_title_wrapper(
+        interactor.create_form_wrapper(
             user_id=user_id,
             form_title=form_title,
             presenter=presenter
@@ -143,18 +143,18 @@ class TestAddFormTite:
 
         interface_mock.validate_user_id.return_value = True
         interface_mock.validate_is_admin.return_value = True
-        form_storage.add_form_title.return_value = expected_form_details_dto
-        presenter.add_form_title_response.return_value = \
+        form_storage.create_form.return_value = expected_form_details_dto
+        presenter.create_form_response.return_value = \
             expected_form_details_dict
 
 
-        interactor = AddFormTitleInteractor(
+        interactor = CreateFormInteractor(
             form_storage=form_storage,
             presenter=presenter
         )
 
         # Act
-        form_details_dict = interactor.add_form_title_wrapper(
+        form_details_dict = interactor.create_form_wrapper(
             user_id=user_id,
             form_title=form_title,
             presenter=presenter
@@ -163,11 +163,11 @@ class TestAddFormTite:
         # Assert
         interface_mock.validate_user_id.assert_called_once_with(user_id)
         interface_mock.validate_is_admin.assert_called_once_with(user_id)
-        form_storage.add_form_title.assert_called_once_with(
+        form_storage.create_form.assert_called_once_with(
             user_id=user_id,
             form_title=form_title
         )
-        presenter.add_form_title_response.assert_called_once_with(
+        presenter.create_form_response.assert_called_once_with(
             form_details_dto=expected_form_details_dto
         )
         assert expected_form_details_dict == form_details_dict

@@ -6,14 +6,15 @@ from formaster.models import AssignForm
 from formaster.dtos.dtos import FormTitleWithIdDto, FormDetailsDto
 from formaster.exceptions.exceptions import (
     InvalidFormId,
+    FormDoesNotExist,
     UserIsNotCreaterOfForm
 )
 
 
 class FormStorageImplimentation(FormStorageInterface):
 
-    def add_form_title(self, user_id: int,
-                       form_title: str) -> FormDetailsDto:
+    def create_form(self, user_id: int,
+                    form_title: str) -> FormDetailsDto:
         form_obj = Form.objects.create(
             user_id=user_id,
             form_title=form_title
@@ -59,14 +60,14 @@ class FormStorageImplimentation(FormStorageInterface):
         try:
             Form.objects.get(id=form_id)
         except Form.DoesNotExist:
-            raise InvalidFormId
+            raise FormDoesNotExist
         return True
 
 
     def validate_is_user_creater_of_form(
             self, user_id: int, form_id: int) -> bool:
         try:
-            Form.objects.get(id=form_id, created_by_id=user_id)
+            Form.objects.get(id=form_id, user_id=user_id)
         except Form.DoesNotExist:
             raise UserIsNotCreaterOfForm
         return True

@@ -5,7 +5,7 @@ from formaster.models.form import Form
 
 
 @pytest.mark.django_db
-def test_delete_form(create_user, create_two_form_titles):
+def test_delete_form(create_two_form_titles):
     # Arrange
     form_id = 1
     form_storage = FormStorageImplimentation()

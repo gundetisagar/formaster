@@ -12,7 +12,7 @@ def test_add_form_title_with_valid_details(form_details_dto):
     expected_form_details = form_details_dto
 
     # Act
-    return_value = form_storage.add_form_title(
+    return_value = form_storage.create_form(
         user_id=user_id,
         form_title=form_title
     )

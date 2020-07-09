@@ -38,7 +38,7 @@ class PresenterInterface():
         pass
 
     @abstractmethod
-    def add_form_title_response(self, form_details_dto: FormDetailsDto):
+    def create_form_response(self, form_details_dto: FormDetailsDto):
         pass
 
     @abstractmethod

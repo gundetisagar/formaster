@@ -1,12 +1,11 @@
 import pytest
 from formaster.storages.form_storage_implementation import \
     FormStorageImplimentation
-from formaster.exceptions.exceptions import InvalidFormId
+from formaster.exceptions.exceptions import FormDoesNotExist
 
 
 @pytest.mark.django_db
-def test_validate_form_id_with_valid_form_id(
-        create_user,
+def test_validate_form_id_with_valid_form_id_returns_true(
         create_two_form_titles):
     # arrnage
     form_id = 1
@@ -24,14 +23,13 @@ def test_validate_form_id_with_valid_form_id(
 
 @pytest.mark.django_db
 def test_validate_form_id_with_invalid_form_id(
-        create_user,
         create_two_form_titles):
     # arrnage
     invalid_form_id = 0
     form_storage = FormStorageImplimentation()
 
     # Act
-    with pytest.raises(InvalidFormId):
+    with pytest.raises(FormDoesNotExist):
         form_storage.validate_form_id(
             form_id=invalid_form_id
         )

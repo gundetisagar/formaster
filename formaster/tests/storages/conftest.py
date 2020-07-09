@@ -39,11 +39,11 @@ from formaster.constants.enums import QuestionTypes
 @pytest.fixture()
 def create_two_form_titles():
     Form.objects.create(
-        created_by_id=1,
+        user_id=1,
         form_title="Snacks Form"
     )
     Form.objects.create(
-        created_by_id=1,
+        user_id=1,
         form_title="Food Form"
     )
 

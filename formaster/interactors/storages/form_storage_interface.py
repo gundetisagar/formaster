@@ -5,8 +5,8 @@ from formaster.dtos.dtos import FormTitleWithIdDto
 class FormStorageInterface:
 
     @abstractmethod
-    def add_form_title(self, user_id: int,
-                       form_title: str) -> FormTitleWithIdDto:
+    def create_form(self, user_id: int,
+                    form_title: str) -> FormTitleWithIdDto:
         pass
 
     @abstractmethod

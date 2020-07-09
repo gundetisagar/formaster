@@ -9,7 +9,6 @@ class QuestionTypes(enum.Enum):
     SMALL_TEXT = "SMALL_TEXT"
 
 
-TYPES_OF_TEXT_QUESTIONS = [QuestionTypes.WELCOME_SCREEN.value,
-                           QuestionTypes.THANK_YOU_SCREEN.value,
-                           QuestionTypes.SMALL_TEXT.value,
-                           QuestionTypes.LARGE_TEXT.value]
+LIST_OF_QUESTION_TYPES = [(question_type.value)
+                          for question_type in QuestionTypes
+]
