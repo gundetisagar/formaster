@@ -1,29 +1,15 @@
 from formaster.interactors.presenters.presenter_interface import \
     PresenterInterface
-from formaster.constants.exception_messages import (
+from formaster_auth.constants.exception_messages import (
     INVALID_USERNAME,
     INVALID_PASSWORD,
-    INVALID_QUESTION_TYPE,
-    INVALID_QUESTION_ID,
-    INVALID_CHOICE_ID,
-    INVALID_FORM_ID,
     INVALID_ACCESS,
-    USER_IS_NOT_ADMIN,
-    USER_IS_NOT_CREATER_OF_FORM,
-    INVALID_RESPONSE_FORM
+    USER_IS_NOT_ADMIN
 )
-from formaster.exceptions.exceptions import (
+from formaster_auth.exceptions.exceptions import (
     InvalidUsername,
     InvalidPassword,
-    InvalidQuestionType,
-    InvalidQuestionId,
-    InvalidChoiceId,
-    InvalidFormId,
-    UserCannotDeleteFormException,
-    UserCannotUpdateFormException,
-    UserIsNotAdmin,
-    UserIsNotCreaterOfForm,
-    InvalidResponseForm
+    UserIsNotAdmin
 )
 from django_swagger_utils.drf_server.exceptions import (
     NotFound,
@@ -31,11 +17,34 @@ from django_swagger_utils.drf_server.exceptions import (
     Forbidden
 )
 
+from django.http import response
+
 
 class PresenterImplementation(PresenterInterface):
 
-    def raise_exception_for_invalid_username(self):
-        raise NotFound(*INVALID_USERNAME)
+    def raise_exception_for_invalid_username(self) -> response.HttpResponse:
+        import json
+        data = json.dumps({
+            "response": INVALID_USERNAME[0],
+            "http_status_code": 404,
+            "res_status": INVALID_USERNAME[1]
+        })
+        response_object = response.HttpResponse(data, 404)
+        return response_object
+        #raise NotFound(*INVALID_USERNAME)
+
+    # def raise_exception_for_invalid_comment_id(self) -> response.HttpResponse:
+    #     from fb_post_clean_arch_v2.constants.exception_messages import \
+    #         INVALID_COMMENT_ID
+    #     import json
+    #     data = json.dumps({
+    #             "response": INVALID_COMMENT_ID[0],
+    #             "http_status_code": 400,
+    #             "res_status": INVALID_COMMENT_ID[1]
+    #         })
+
+    #     response_object = response.HttpResponse(data, 400)
+    #     return response_object
 
     def raise_exception_for_invalid_password(self):
         raise Forbidden(*INVALID_PASSWORD)

@@ -108,7 +108,31 @@
             }
         },
         "InvalidUsernameOrPasswordResponse": {
-            "description": "Given details invalid"
+            "description": "Given details username",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "response": {
+                        "type": "string"
+                    },
+                    "http_status_code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "res_status": {
+                        "type": "string",
+                        "enum": [
+                            "INVALID_USERNAME",
+                            "INVALID_PASSWORD"
+                        ]
+                    }
+                },
+                "required": [
+                    "response",
+                    "http_status_code",
+                    "res_status"
+                ]
+            }
         },
         "UserDetailsResponses": {
             "description": "returns user details",
