@@ -47,7 +47,15 @@ class PresenterImplementation(PresenterInterface):
     #     return response_object
 
     def raise_exception_for_invalid_password(self):
-        raise Forbidden(*INVALID_PASSWORD)
+        import json
+        data = json.dumps({
+            "response": INVALID_PASSWORD[0],
+            "http_status_code": 404,
+            "res_status": INVALID_PASSWORD[1]
+        })
+        response_object = response.HttpResponse(data, 404)
+        return response_object
+        #raise Forbidden(*INVALID_PASSWORD)
 
     def raise_exception_for_is_not_admin(self):
         raise UserIsNotAdmin(*USER_IS_NOT_ADMIN)

@@ -2,12 +2,11 @@ from formaster.interactors.storages.form_storage_interface import \
     FormStorageInterface
 from formaster.interactors.presenters.presenter_interface import \
     PresenterInterface
-from formaster.exceptions.exceptions import UserIsNotAdmin
 
 
 class GetFormsInteractor:
     def __init__(self, form_storage: FormStorageInterface,
-    
+
                  presenter: PresenterInterface):
         self.form_storage = form_storage
         self.presenter = presenter

@@ -49,20 +49,3 @@ class CreateFormInteractor:
             form_title=form_title
         )
         return form_details_dto
-
-        # try:
-        #     service_adapter().user_service.validate_is_admin(user_id=user_id)
-        #     #self.user_storage.validate_is_admin(user_id=user_id)
-        # except Forbidden:
-        #     self.presenter.raise_exception_for_is_not_admin()
-        #     return
-
-        # form_title_with_id_dto = self.form_storage.add_form_title(
-        #     user_id=user_id,
-        #     form_title=form_title
-        # )
-
-        # form_title_with_id_dict = self.presenter.add_form_title_response(
-        #     form_title_with_id_dto
-        # )
-        # return form_title_with_id_dict
